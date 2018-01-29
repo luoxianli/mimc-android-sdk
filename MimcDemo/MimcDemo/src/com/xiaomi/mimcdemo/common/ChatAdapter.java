@@ -6,8 +6,11 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.TextView;
-import com.xiaomi.mimc.MIMCGroupMessage;
+
 import com.xiaomi.mimcdemo.R;
+import com.xiaomi.mimcdemo.common.UserManager;
+import com.xiaomi.mimc.MIMCGroupMessage;
+
 import java.util.List;
 
 public class ChatAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder> {

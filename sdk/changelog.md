@@ -1,3 +1,5 @@
+# 1.1.1
++ Add toAccount and sequence.
 # 1.1.0
 + Fix bugs and modify package name.
 # 1.0.14

@@ -16,8 +16,8 @@ import com.xiaomi.mimcdemo.common.UserManager;
 import com.xiaomi.mimc.MIMCMessage;
 import com.xiaomi.mimc.MimcConstant;
 import com.xiaomi.mimc.MimcException;
+import com.xiaomi.mimc.MimcLogger;
 import com.xiaomi.mimc.User;
-
 
 public class SendMsgDialog extends Dialog {
 
@@ -65,6 +65,7 @@ public class SendMsgDialog extends Dialog {
                     MIMCMessage message = new MIMCMessage();
                     message.setPayload(mContent);
                     message.setFromAccount(userManager.getAccount());
+                    message.setToAccount(mTo);
                     UserManager.getInstance().addMsg(message);
                     dismiss();
                 }

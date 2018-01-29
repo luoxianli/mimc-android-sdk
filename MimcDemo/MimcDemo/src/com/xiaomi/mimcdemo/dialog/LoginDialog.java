@@ -13,9 +13,9 @@ import com.xiaomi.mimcdemo.R;
 import com.xiaomi.mimcdemo.common.NetWorkUtils;
 import com.xiaomi.mimcdemo.common.SystemUtils;
 import com.xiaomi.mimcdemo.common.UserManager;
-import com.xiaomi.mimc.MimcException;
 import com.xiaomi.mimc.User;
-
+import com.xiaomi.mimc.MimcException;
+import com.xiaomi.mimc.MimcLogger;
 
 public class LoginDialog extends Dialog {
 

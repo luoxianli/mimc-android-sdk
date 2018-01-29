@@ -7,9 +7,12 @@ import com.xiaomi.mimc.MimcLogger;
 import com.xiaomi.mimc.MimcMessageHandler;
 import com.xiaomi.mimc.MimcOnlineStatusListener;
 import com.xiaomi.mimc.User;
+
 import org.json.JSONObject;
+
 import java.io.IOException;
 import java.util.List;
+
 import okhttp3.Call;
 import okhttp3.Callback;
 import okhttp3.MediaType;
@@ -124,11 +127,7 @@ public class UserManager {
         @Override
         public void handleMessage(List<MIMCMessage> packets) {
             for (int i = 0; i < packets.size(); ++i) {
-                MIMCMessage message = new MIMCMessage();
-                message.setFromAccount(packets.get(i).getFromAccount());
-                message.setFromResource(packets.get(i).getFromResource());
-                message.setPayload(packets.get(i).getPayload());
-                addMsg(message);
+                addMsg(packets.get(i));
             }
         }
 

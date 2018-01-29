@@ -14,12 +14,12 @@ import android.widget.TextView;
 import android.widget.TimePicker;
 import android.widget.Toast;
 
+import com.xiaomi.mimc.MimcConstant;
 import com.xiaomi.mimcdemo.R;
 import com.xiaomi.mimcdemo.common.NetWorkUtils;
 import com.xiaomi.mimcdemo.common.SystemUtils;
 import com.xiaomi.mimcdemo.common.TimeUtils;
 import com.xiaomi.mimcdemo.common.UserManager;
-import com.xiaomi.mimc.MimcConstant;
 
 import java.util.Calendar;
 

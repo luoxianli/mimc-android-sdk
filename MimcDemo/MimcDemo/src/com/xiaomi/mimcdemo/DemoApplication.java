@@ -5,14 +5,14 @@ import android.app.Application;
 import android.os.Bundle;
 import android.util.Log;
 
-import com.xiaomi.mimcdemo.common.SystemUtils;
-import com.xiaomi.mimcdemo.common.UserManager;
 import com.xiaomi.mimc.LoggerInterface;
 import com.xiaomi.mimc.MimcClient;
+import com.xiaomi.mimc.MimcConstant;
 import com.xiaomi.mimc.MimcException;
 import com.xiaomi.mimc.MimcLogger;
 import com.xiaomi.mimc.User;
-
+import com.xiaomi.mimcdemo.common.SystemUtils;
+import com.xiaomi.mimcdemo.common.UserManager;
 
 public class DemoApplication extends Application {
     public static final String TAG = "com.xiaomi.MimcDemo";
@@ -58,6 +58,9 @@ public class DemoApplication extends Application {
                     User user = UserManager.getInstance().getUser();
                     if (user != null) try {
                         user.login();
+                        if (UserManager.getInstance().getStatus() == MimcConstant.STATUS_LOGIN_SUCCESS) {
+                            user.pull();
+                        }
                     } catch (MimcException e) {
                         e.printStackTrace();
                     }

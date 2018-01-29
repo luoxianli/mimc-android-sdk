@@ -11,6 +11,11 @@ import android.view.View;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.xiaomi.mimc.MIMCGroupMessage;
+import com.xiaomi.mimc.MIMCMessage;
+import com.xiaomi.mimc.MimcConstant;
+import com.xiaomi.mimc.MimcException;
+import com.xiaomi.mimc.User;
 import com.xiaomi.mimcdemo.common.ChatAdapter;
 import com.xiaomi.mimcdemo.common.NetWorkUtils;
 import com.xiaomi.mimcdemo.common.ParseJson;
@@ -29,11 +34,6 @@ import com.xiaomi.mimcdemo.dialog.QuitGroupDialog;
 import com.xiaomi.mimcdemo.dialog.SendGroupMsgDialog;
 import com.xiaomi.mimcdemo.dialog.SendMsgDialog;
 import com.xiaomi.mimcdemo.dialog.UpdateGroupDialog;
-import com.xiaomi.mimc.MIMCGroupMessage;
-import com.xiaomi.mimc.MIMCMessage;
-import com.xiaomi.mimc.MimcConstant;
-import com.xiaomi.mimc.MimcException;
-import com.xiaomi.mimc.User;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -209,24 +209,6 @@ public class MainActivity extends Activity implements UserManager.OnSendMsgListe
     }
 
     @Override
-    protected void onResume() {
-        super.onResume();
-        if (!TextUtils.isEmpty(UserManager.getInstance().getAccount())) {
-            try {
-                User user = UserManager.getInstance().getUser();
-                if (user != null) user.pull();
-            } catch (MimcException e) {
-                e.printStackTrace();
-            }
-        }
-    }
-
-    @Override
-    public void onDestroy() {
-        super.onDestroy();
-    }
-
-    @Override
     public void onHandleMessage(final MIMCMessage message) {
         runOnUiThread(new Runnable() {
             @Override
@@ -235,7 +217,6 @@ public class MainActivity extends Activity implements UserManager.OnSendMsgListe
                 groupMessage.setGroupId(-1);
                 groupMessage.setPayload(message.getPayload());
                 groupMessage.setFromAccount(message.getFromAccount());
-                groupMessage.setFromResource(message.getFromResource());
                 mdatas.add(groupMessage);
                 mAdapter.notifyDataSetChanged();
                 mRecyclerView.scrollToPosition(mAdapter.getItemCount() - 1);

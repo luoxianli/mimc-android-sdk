@@ -12,7 +12,6 @@ import com.xiaomi.mimcdemo.common.NetWorkUtils;
 import com.xiaomi.mimcdemo.common.UserManager;
 import com.xiaomi.mimc.MimcConstant;
 
-
 public class KickGroupDialog extends Dialog {
 
     public KickGroupDialog(Context context) {
