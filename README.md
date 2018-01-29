@@ -143,13 +143,13 @@ interface MIMCMessageHandler {
 user.login();
 ```
 		
-## 9) 发送P2P消息
+## 9) 发送单聊消息
 
 ``` java 
 String packetId = user.sendMessage(String toUserName, byte[] payload);
 ```
 
-## 10) 发送P2T消息
+## 10) 发送群聊消息
 
 ``` java
 String packetId = user.sendGroupMessage(long groupID, byte[] payload); 
