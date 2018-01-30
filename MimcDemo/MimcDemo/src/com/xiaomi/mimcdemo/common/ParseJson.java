@@ -2,9 +2,7 @@ package com.xiaomi.mimcdemo.common;
 
 import android.content.Context;
 import android.util.Base64;
-
 import com.xiaomi.mimcdemo.R;
-
 import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;

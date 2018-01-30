@@ -1,3 +1,5 @@
+# 1.1.2
++ Add send timeout.
 # 1.1.1
 + Add toAccount and sequence.
 # 1.1.0
