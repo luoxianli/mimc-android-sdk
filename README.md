@@ -132,8 +132,10 @@ user.registerMessageHandler(MIMCMessageHandler handler);
 interface MIMCMessageHandler {
 	public void handleMessage(List<MIMCMessage> packets);        
 	public void handleGroupMessage(List<MIMCGroupMessage> packets); 
+	
 	//参数packetId与9)、10）对应
 	public void handleServerAck(String packetId);
+	
 	public void handleSendTimeout(MIMCTimeoutMessage timeoutMessage);
 	public void handleGroupSendTimeout(MIMCGroupTimeoutMessage groupTimeoutMessage);
 }
