@@ -11,10 +11,8 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import com.xiaomi.mimc.MIMCGroupMessage;
-import com.xiaomi.mimc.MIMCGroupTimeoutMessage;
 import com.xiaomi.mimc.MIMCMessage;
 import com.xiaomi.mimc.MimcConstant;
-import com.xiaomi.mimc.MIMCTimeoutMessage;
 import com.xiaomi.mimc.User;
 import com.xiaomi.mimcdemo.common.ChatAdapter;
 import com.xiaomi.mimcdemo.common.NetWorkUtils;
@@ -408,23 +406,23 @@ public class MainActivity extends Activity implements UserManager.OnSendMsgListe
     }
 
     @Override
-    public void onHandleSendTimeout(final MIMCTimeoutMessage timeoutMessage) {
+    public void handleSendMessageTimeout(final MIMCMessage message) {
         runOnUiThread(new Runnable() {
             @Override
             public void run() {
-                Toast.makeText(SystemUtils.getContext(), "Send timeout: " +
-                    new String(timeoutMessage.getPayload()), Toast.LENGTH_SHORT).show();
+                Toast.makeText(SystemUtils.getContext(), "Send message timeout: " +
+                    new String(message.getPayload()), Toast.LENGTH_SHORT).show();
             }
         });
     }
 
     @Override
-    public void onHandleGroupSendTimeout(final MIMCGroupTimeoutMessage groupTimeoutMessage) {
+    public void handleSendGroupMessageTimeout(final MIMCGroupMessage groupMessage) {
         runOnUiThread(new Runnable() {
             @Override
             public void run() {
-                Toast.makeText(SystemUtils.getContext(), "Group send timeout: " +
-                    new String(groupTimeoutMessage.getPayload()), Toast.LENGTH_SHORT).show();
+                Toast.makeText(SystemUtils.getContext(), "Send group message timeout: " +
+                    new String(groupMessage.getPayload()), Toast.LENGTH_SHORT).show();
             }
         });
     }

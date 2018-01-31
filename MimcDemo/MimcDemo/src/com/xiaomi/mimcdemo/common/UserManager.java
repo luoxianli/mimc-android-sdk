@@ -1,13 +1,11 @@
 package com.xiaomi.mimcdemo.common;
 
 import com.xiaomi.mimc.MIMCGroupMessage;
-import com.xiaomi.mimc.MIMCGroupTimeoutMessage;
 import com.xiaomi.mimc.MIMCMessage;
 import com.xiaomi.mimc.MIMCTokenFetcher;
 import com.xiaomi.mimc.MimcLogger;
 import com.xiaomi.mimc.MimcMessageHandler;
 import com.xiaomi.mimc.MimcOnlineStatusListener;
-import com.xiaomi.mimc.MIMCTimeoutMessage;
 import com.xiaomi.mimc.User;
 
 import org.json.JSONObject;
@@ -67,8 +65,8 @@ public class UserManager {
         void onDismissGroup(String json, boolean isSuccess);
         void onPullP2PHistory(String json, boolean isSuccess);
         void onPullP2THistory(String json, boolean isSuccess);
-        void onHandleSendTimeout(MIMCTimeoutMessage timeoutMessage);
-        void onHandleGroupSendTimeout(MIMCGroupTimeoutMessage groupTimeoutMessage);
+        void handleSendMessageTimeout(MIMCMessage message);
+        void handleSendGroupMessageTimeout(MIMCGroupMessage groupMessage);
     }
 
     public static UserManager getInstance() {
@@ -150,13 +148,13 @@ public class UserManager {
         }
 
         @Override
-        public void handleSendTimeout(MIMCTimeoutMessage timeoutMessage) {
-            onSendMsgListener.onHandleSendTimeout(timeoutMessage);
+        public void handleSendMessageTimeout(MIMCMessage message) {
+            onSendMsgListener.handleSendMessageTimeout(message);
         }
 
         @Override
-        public void handleGroupSendTimeout(MIMCGroupTimeoutMessage groupTimeoutMessage) {
-            onSendMsgListener.onHandleGroupSendTimeout(groupTimeoutMessage);
+        public void handleSendGroupMessageTimeout(MIMCGroupMessage groupMessage) {
+            onSendMsgListener.handleSendGroupMessageTimeout(groupMessage);
         }
     }
 
