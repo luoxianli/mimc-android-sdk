@@ -103,7 +103,7 @@ User user = new User(appId, username);
 ## 5) 请求到Token并返回
 
 ``` java 
-user.registerTokenFetcher(MIMCTokenFetcher  fetcher); 
+user.registerTokenFetcher(MIMCTokenFetcher fetcher); 
 interface MIMCTokenFetcher {
 	/**
 	 * @return: 小米TokenService服务下发的原始数据
