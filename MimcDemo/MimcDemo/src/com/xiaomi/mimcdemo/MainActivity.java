@@ -12,12 +12,14 @@ import android.widget.Toast;
 
 import com.xiaomi.mimc.MIMCGroupMessage;
 import com.xiaomi.mimc.MIMCMessage;
+import com.xiaomi.mimc.MIMCServerAck;
 import com.xiaomi.mimc.MimcConstant;
 import com.xiaomi.mimc.User;
 import com.xiaomi.mimcdemo.common.ChatAdapter;
 import com.xiaomi.mimcdemo.common.NetWorkUtils;
 import com.xiaomi.mimcdemo.common.ParseJson;
 import com.xiaomi.mimcdemo.common.SystemUtils;
+import com.xiaomi.mimcdemo.common.TimeUtils;
 import com.xiaomi.mimcdemo.common.UserManager;
 import com.xiaomi.mimcdemo.dialog.CreateGroupDialog;
 import com.xiaomi.mimcdemo.dialog.DismissGroupDialog;
@@ -213,6 +215,7 @@ public class MainActivity extends Activity implements UserManager.OnSendMsgListe
             public void run() {
                 MIMCGroupMessage groupMessage = new MIMCGroupMessage();
                 groupMessage.setGroupId(-1);
+                groupMessage.setTimeStamp(message.getTimeStamp());
                 groupMessage.setPayload(message.getPayload());
                 groupMessage.setFromAccount(message.getFromAccount());
                 mdatas.add(groupMessage);
@@ -245,12 +248,13 @@ public class MainActivity extends Activity implements UserManager.OnSendMsgListe
     }
 
     @Override
-    public void onHandleServerAck(final String packetId) {
+    public void onHandleServerAck(final MIMCServerAck serverAck) {
         runOnUiThread(new Runnable() {
             @Override
             public void run() {
                 Toast.makeText(SystemUtils.getContext(), "Server has received packetId: "
-                    + packetId, Toast.LENGTH_SHORT).show();
+                    + serverAck.getPacketId()
+                    + "\n" + TimeUtils.utc2Local(serverAck.getTimeStamp()), Toast.LENGTH_SHORT).show();
             }
         });
     }
@@ -406,7 +410,7 @@ public class MainActivity extends Activity implements UserManager.OnSendMsgListe
     }
 
     @Override
-    public void handleSendMessageTimeout(final MIMCMessage message) {
+    public void onHandleSendMessageTimeout(final MIMCMessage message) {
         runOnUiThread(new Runnable() {
             @Override
             public void run() {
@@ -417,7 +421,7 @@ public class MainActivity extends Activity implements UserManager.OnSendMsgListe
     }
 
     @Override
-    public void handleSendGroupMessageTimeout(final MIMCGroupMessage groupMessage) {
+    public void onHandleSendGroupMessageTimeout(final MIMCGroupMessage groupMessage) {
         runOnUiThread(new Runnable() {
             @Override
             public void run() {

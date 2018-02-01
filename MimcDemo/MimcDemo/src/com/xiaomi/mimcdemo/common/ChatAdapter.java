@@ -47,14 +47,15 @@ public class ChatAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder> {
         if (msg.getGroupId() >= 0) {
             content = mContext.getString(R.string.group_info) + content;
         }
+        String timeStamp = msg.getTimeStamp() > 0 ? TimeUtils.utc2Local(msg.getTimeStamp()) : "";
         String mimcAccount = UserManager.getInstance().getAccount();
         if (holder instanceof ChatSendViewHolder) {
             ((ChatSendViewHolder) holder).tv_send.setText(content);
-            ((ChatSendViewHolder) holder).send_account.setText(mimcAccount);
+            ((ChatSendViewHolder) holder).send_account.setText(timeStamp + "    " + mimcAccount);
         }
         if (holder instanceof ChatReceiveViewHolder) {
             ((ChatReceiveViewHolder) holder).tv_receive.setText(content);
-            ((ChatReceiveViewHolder) holder).receive_account.setText(fromAccount);
+            ((ChatReceiveViewHolder) holder).receive_account.setText(fromAccount + "    " + timeStamp);
         }
     }
 

@@ -2,6 +2,7 @@ package com.xiaomi.mimcdemo.common;
 
 import com.xiaomi.mimc.MIMCGroupMessage;
 import com.xiaomi.mimc.MIMCMessage;
+import com.xiaomi.mimc.MIMCServerAck;
 import com.xiaomi.mimc.MIMCTokenFetcher;
 import com.xiaomi.mimc.MimcLogger;
 import com.xiaomi.mimc.MimcMessageHandler;
@@ -54,7 +55,7 @@ public class UserManager {
         void onHandleMessage(MIMCMessage message);
         void onHandleGroupMessage(MIMCGroupMessage message);
         void onStatusChanged(int status);
-        void onHandleServerAck(String packetId);
+        void onHandleServerAck(MIMCServerAck serverAck);
         void onCreateGroup(String json, boolean isSuccess);
         void onQueryGroupInfo(String json, boolean isSuccess);
         void onQueryGroupsOfAccount(String json, boolean isSuccess);
@@ -65,8 +66,8 @@ public class UserManager {
         void onDismissGroup(String json, boolean isSuccess);
         void onPullP2PHistory(String json, boolean isSuccess);
         void onPullP2THistory(String json, boolean isSuccess);
-        void handleSendMessageTimeout(MIMCMessage message);
-        void handleSendGroupMessageTimeout(MIMCGroupMessage groupMessage);
+        void onHandleSendMessageTimeout(MIMCMessage message);
+        void onHandleSendGroupMessageTimeout(MIMCGroupMessage groupMessage);
     }
 
     public static UserManager getInstance() {
@@ -87,10 +88,6 @@ public class UserManager {
 
     public void addMsg(MIMCGroupMessage message) {
         onSendMsgListener.onHandleGroupMessage(message);
-    }
-
-    public void serverAck(String packetId){
-        onSendMsgListener.onHandleServerAck(packetId);
     }
 
     public User getUser() {
@@ -143,18 +140,18 @@ public class UserManager {
         }
 
         @Override
-        public void handleServerAck(String packetId) {
-           serverAck(packetId);
+        public void handleServerAck(MIMCServerAck serverAck) {
+            onSendMsgListener.onHandleServerAck(serverAck);
         }
 
         @Override
         public void handleSendMessageTimeout(MIMCMessage message) {
-            onSendMsgListener.handleSendMessageTimeout(message);
+            onSendMsgListener.onHandleSendMessageTimeout(message);
         }
 
         @Override
         public void handleSendGroupMessageTimeout(MIMCGroupMessage groupMessage) {
-            onSendMsgListener.handleSendGroupMessageTimeout(groupMessage);
+            onSendMsgListener.onHandleSendGroupMessageTimeout(groupMessage);
         }
     }
 
