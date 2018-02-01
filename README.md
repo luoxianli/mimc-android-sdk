@@ -3,9 +3,9 @@
 
 # 快速开始
 
-## 1) 快速接入 & 安全认证
+## 1) 如何接入 & 安全认证
 
-参考 [详细文档](https://github.com/Xiaomi-mimc/operation-manual) 快速接入 & 安全认证
+参考 [详细文档](https://github.com/Xiaomi-mimc/operation-manual) 如何接入 & 安全认证
 
 ## 2) 在应用的AndroidManifest.xml里添加以下配置：
 
