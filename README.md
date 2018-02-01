@@ -133,8 +133,8 @@ interface MIMCMessageHandler {
 	public void handleMessage(List<MIMCMessage> packets);        
 	public void handleGroupMessage(List<MIMCGroupMessage> packets); 
 	
-	//参数packetId与9)、10）对应
-	public void handleServerAck(String packetId);
+	// 参数serverAck.packetId与9)、10）对应
+	public void handleServerAck(MIMCServerAck serverAck);
 	
 	public void handleSendMessageTimeout(MIMCMessage message);
 	public void handleSendGroupMessageTimeout(MIMCGroupMessage groupMessage);
