@@ -46,13 +46,7 @@ public class SendMsgDialog extends Dialog {
 
                 sp.edit().putString("toAccount", mTo).commit();
 
-                if (!NetWorkUtils.isNetwork(getContext())) {
-                    Toast.makeText(getContext(), getContext().getString(R.string.network_unavailable), Toast.LENGTH_SHORT).show();
-                    return;
-                } else if (UserManager.getInstance().getStatus() != MimcConstant.STATUS_LOGIN_SUCCESS) {
-                    Toast.makeText(getContext(), getContext().getString(R.string.login_failed), Toast.LENGTH_SHORT).show();
-                    return;
-                } else if (!TextUtils.isEmpty(mTo)){
+                if (!TextUtils.isEmpty(mTo)){
                     UserManager userManager = UserManager.getInstance();
                     User user = userManager.getUser();
                     try {

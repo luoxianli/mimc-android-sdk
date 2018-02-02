@@ -1,3 +1,5 @@
+# 1.1.4
++ Optimize send message.
 # 1.1.3
 + ServerAck add timeStamp and sequence.
 # 1.1.2

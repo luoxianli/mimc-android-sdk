@@ -7,16 +7,13 @@ import android.os.Bundle;
 import android.text.TextUtils;
 import android.view.View;
 import android.widget.EditText;
-import android.widget.Toast;
 
-import com.xiaomi.mimcdemo.R;
-import com.xiaomi.mimcdemo.common.NetWorkUtils;
-import com.xiaomi.mimcdemo.common.SystemUtils;
-import com.xiaomi.mimcdemo.common.UserManager;
 import com.xiaomi.mimc.MIMCGroupMessage;
-import com.xiaomi.mimc.MimcConstant;
 import com.xiaomi.mimc.MimcException;
 import com.xiaomi.mimc.User;
+import com.xiaomi.mimcdemo.R;
+import com.xiaomi.mimcdemo.common.SystemUtils;
+import com.xiaomi.mimcdemo.common.UserManager;
 
 public class SendGroupMsgDialog extends Dialog {
 
@@ -45,13 +42,7 @@ public class SendGroupMsgDialog extends Dialog {
                 byte mContent[] = ((EditText)findViewById(R.id.et_group_content))
                         .getText().toString().getBytes();
 
-                if (!NetWorkUtils.isNetwork(getContext())) {
-                    Toast.makeText(getContext(), getContext().getString(R.string.network_unavailable), Toast.LENGTH_SHORT).show();
-                    return;
-                } else if (UserManager.getInstance().getStatus() != MimcConstant.STATUS_LOGIN_SUCCESS) {
-                    Toast.makeText(getContext(), getContext().getString(R.string.login_failed), Toast.LENGTH_SHORT).show();
-                    return;
-                } else if (!TextUtils.isEmpty(mTo)){
+                if (!TextUtils.isEmpty(mTo)){
                     UserManager userManager = UserManager.getInstance();
                     User user = userManager.getUser();
                     try {

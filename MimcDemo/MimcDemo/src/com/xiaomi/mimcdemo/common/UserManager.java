@@ -35,12 +35,11 @@ public class UserManager {
     private long appId = 2882303761517669588L;
     private String appKey = "5111766983588";
     private String appSecret = "b0L3IOz/9Ob809v8H2FbVg==";
-    private String appAccount;
+    private String appAccount = "";
     private String url;
     private User mUser;
     private int mStatus;
     private final static UserManager instance = new UserManager();
-    private String token = "bJRLeg7AgtSh0T13YjL/IFDdK0JTjCJG4KdSfB9L7c0+fxzihaW2nqjG1PONAKI8oYJeHpzgG8crdV6Io0iEsdsXEK0ahSQmSLAMm2zInHcLaybr//o/Fq6eT3ET7RKjVYgi6wNBiMnJ7WfN26gCINUcJoML89/+OdcsrnHlV/g9pEi7rhcRYL2elnC9oUjIpGda6yEk1veedO/WPxD4T32Pa+kn+bw5gnkWFLuJJEm9irZAI+YHWVGRGJB30Ae1UnmcfeBusobSS8Co3jtt1VbHeuSlkvrUo0xlOwgQCASzChUeMDHUJizxUYjNl9NDct4VwyPy0jFYYTKE+yYvLg==";
 
     private UserManager() {
     }
@@ -96,19 +95,12 @@ public class UserManager {
 
     public User newUser(String account){
         if (account == null) return null;
-        if (mUser != null) {
-            if (!account.equals(appAccount)){
-                mUser.logout();
-                mUser = null;
-            }
-        }
-        if (mUser == null) {
-            mUser = new User(appId, account);
-            mUser.registerTokenFetcher(new TokenFetcher());
-            mUser.registerMessageHandler(new MessageHandler());
-            mUser.registerOnlineStatusListener(new OnlineStatusListener());
-            appAccount = account;
-        }
+
+        mUser = new User(appId, account);
+        mUser.registerTokenFetcher(new TokenFetcher());
+        mUser.registerMessageHandler(new MessageHandler());
+        mUser.registerOnlineStatusListener(new OnlineStatusListener());
+        appAccount = account;
 
         return mUser;
     }
@@ -189,7 +181,6 @@ public class UserManager {
                     MimcLogger.w("data failure");
                 }
                 data = object.getJSONObject("data");
-                token = data.getString("token");
             } catch (Exception e) {
                 e.printStackTrace();
             }
@@ -205,7 +196,7 @@ public class UserManager {
         Request request = new Request
                 .Builder()
                 .url(url)
-                .addHeader("token", token)
+                .addHeader("token", mUser.getToken())
                 .post(RequestBody.create(JSON, json))
                 .build();
         try {
@@ -234,7 +225,7 @@ public class UserManager {
         Request request = new Request
                 .Builder()
                 .url(url)
-                .addHeader("token", token)
+                .addHeader("token", mUser.getToken())
                 .get()
                 .build();
         try {
@@ -263,7 +254,7 @@ public class UserManager {
         Request request = new Request
                 .Builder()
                 .url(url)
-                .addHeader("token", token)
+                .addHeader("token", mUser.getToken())
                 .get()
                 .build();
         try {
@@ -294,7 +285,7 @@ public class UserManager {
         Request request = new Request
                 .Builder()
                 .url(url)
-                .addHeader("token", token)
+                .addHeader("token", mUser.getToken())
                 .post(RequestBody.create(JSON, json))
                 .build();
         try {
@@ -323,7 +314,7 @@ public class UserManager {
         Request request = new Request
                 .Builder()
                 .url(url)
-                .addHeader("token", token)
+                .addHeader("token", mUser.getToken())
                 .delete()
                 .build();
         try {
@@ -352,7 +343,7 @@ public class UserManager {
         Request request = new Request
                 .Builder()
                 .url(url)
-                .addHeader("token", token)
+                .addHeader("token", mUser.getToken())
                 .delete()
                 .build();
         try {
@@ -384,7 +375,7 @@ public class UserManager {
         Request request = new Request
                 .Builder()
                 .url(url)
-                .addHeader("token", token)
+                .addHeader("token", mUser.getToken())
                 .put(RequestBody.create(JSON, json))
                 .build();
         try {
@@ -413,7 +404,7 @@ public class UserManager {
         Request request = new Request
                 .Builder()
                 .url(url)
-                .addHeader("token", token)
+                .addHeader("token", mUser.getToken())
                 .delete()
                 .build();
         try {
@@ -447,7 +438,7 @@ public class UserManager {
                 .Builder()
                 .url(url)
                 .addHeader("Accept", "application/json;charset=UTF-8")
-                .addHeader("token", token)
+                .addHeader("token", mUser.getToken())
                 .post(RequestBody.create(JSON, json))
                 .build();
         try {
@@ -480,7 +471,7 @@ public class UserManager {
                 .Builder()
                 .url(url)
                 .addHeader("Accept", "application/json;charset=UTF-8")
-                .addHeader("token", token)
+                .addHeader("token", mUser.getToken())
                 .post(RequestBody.create(JSON, json))
                 .build();
         try {
