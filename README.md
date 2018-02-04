@@ -1,13 +1,8 @@
 # MIMC官方详细文档点击此链接：[详细文档](https://github.com/Xiaomi-mimc/operation-manual)
 
-
 # 快速开始
 
-## 1) 如何接入 & 安全认证
-
-参考 [详细文档](https://github.com/Xiaomi-mimc/operation-manual) 如何接入 & 安全认证
-
-## 2) 在应用的AndroidManifest.xml里添加以下配置：
+## 1) 在应用的AndroidManifest.xml里添加以下配置：
 
 ``` xml
 <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE" />
@@ -62,41 +57,15 @@
 #### 注意：
 我们将MimcCoreService和MimcJobService定义在了mimc进程中，您也可以配置其运行在任意进程。如果没有配置android:process这个属性，那么它们将运行在应用的主进程中。
 
-## 3) 获取Token
-
-+ appId/appKey/appSec：
-
-	小米开放平台(dev.mi.com/cosole/man/)申请
-  
-	信息敏感，不应存储于APP端，应存储在AppProxyService
-  
-+ appAccount:
-
-	APP帐号系统内唯一ID
-  
-+ AppProxyService：
-
-	a) 验证appAccount合法性；
-  
-	b) 访问TokenService，获取Token并下发给APP；
-  
-#### 访问TokenService获取Token方式如下：
-
-```
-curl “https://mimc.chat.xiaomi.net/api/account/token”
--XPOST -d '{"appId":$appId,"appKey":$appKey,"appSecret":$appSec,"appAccount":$appAccount}' 
--H "Content-Type: application/json"
-```
-
-## 4) 初始化
+## 2) 初始化
 
 ``` java 
 MimcClient.initialize(this);
 User user = new User(appId, username);
 ```
 
-## 5) 请求到Token并返回
-
+## 3) 请求Token
+#### 参考 [详细文档](https://github.com/Xiaomi-mimc/operation-manual) 如何接入 & 安全认证
 ``` java 
 user.registerTokenFetcher(MIMCTokenFetcher fetcher); 
 interface MIMCTokenFetcher {
@@ -111,7 +80,7 @@ interface MIMCTokenFetcher {
 }
 ```
 
-## 6) 获得连接状态
+## 4) 获得连接状态
 
 ``` java 
 user.registerOnlineStatusHandler(MIMCOnlineStatusHandler handler);
@@ -120,7 +89,7 @@ interface MIMCOnlineStatusHandler {
 }
 ```
 
-## 7) 接收消息
+## 5) 接收消息
 
 ``` java 
 user.registerMessageHandler(MIMCMessageHandler handler);
@@ -136,33 +105,33 @@ interface MIMCMessageHandler {
 }
 ```
 
-## 8) 登录
+## 6) 登录
 
 ``` java 
 // 建议App从后台切换到前台时，调用一次登录。
 user.login();
 ```
 		
-## 9) 发送单聊消息
+## 7) 发送单聊消息
 
 ``` java 
 String packetId = user.sendMessage(String toUserName, byte[] payload);
 ```
 
-## 10) 发送群聊消息
+## 8) 发送群聊消息
 
 ``` java
 String packetId = user.sendGroupMessage(long groupID, byte[] payload); 
 ```
 
-## 12) 拉取消息
+## 9) 拉取消息
 
 ``` java
 // 从服务端拉取未下发的消息，建议App从后台切换到前台时拉一下。
 user.pull();
 ```
 
-## 12) 注销
+## 10) 注销
 
 ``` java 
 user.logout();
