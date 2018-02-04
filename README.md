@@ -61,7 +61,12 @@
 
 ``` java 
 MimcClient.initialize(this);
-User user = new User(appId, username);
+
+/**
+ * @param[appId]: 开发者在小米开放平台申请的appId
+ * @param[appAccount]: 用户在APP帐号系统内的唯一帐号ID
+ **/
+User user = new User(appId, appAccount);
 ```
 
 ## 3) 请求Token
@@ -80,7 +85,7 @@ interface MIMCTokenFetcher {
 }
 ```
 
-## 4) 获得连接状态
+## 4) 在线状态变化回调
 
 ``` java 
 user.registerOnlineStatusHandler(MIMCOnlineStatusHandler handler);
@@ -89,7 +94,7 @@ interface MIMCOnlineStatusHandler {
 }
 ```
 
-## 5) 接收消息
+## 5) 接收消息回调
 
 ``` java 
 user.registerMessageHandler(MIMCMessageHandler handler);
@@ -97,7 +102,12 @@ interface MIMCMessageHandler {
 	public void handleMessage(List<MIMCMessage> packets);        
 	public void handleGroupMessage(List<MIMCGroupMessage> packets); 
 	
-	// 参数serverAck.packetId与9)、10）对应
+	/**
+	 * @param[serverAck]: 服务器返回的serverAck对象
+	 *        serverAck.packetId: 客户端生成的消息ID
+	 *        serverAck.timestamp: 消息发送到服务器的时间(单位:ms)
+	 *        serverAck.sequence: 服务器为消息分配的递增ID，可用于去重/排序
+	 **/ 
 	public void handleServerAck(MIMCServerAck serverAck);
 	
 	public void handleSendMessageTimeout(MIMCMessage message);
@@ -108,26 +118,40 @@ interface MIMCMessageHandler {
 ## 6) 登录
 
 ``` java 
-// 建议App从后台切换到前台时，调用一次登录。
+/**
+ * @note: App从后台切换到前台时，建议调用一次登录
+ **/ 
 user.login();
 ```
 		
 ## 7) 发送单聊消息
 
 ``` java 
-String packetId = user.sendMessage(String toUserName, byte[] payload);
+/**
+ * @param[toAppAccount]: 消息接收者在APP帐号系统内的唯一帐号ID
+ * @param[payload]: 开发者自定义消息体
+ * @return: 客户端生成的消息ID
+ **/ 
+String packetId = user.sendMessage(String toAppAccount, byte[] payload);
 ```
 
 ## 8) 发送群聊消息
 
 ``` java
+/**
+ * @param[groupId]: 群ID，也称为topicId
+ * @param[payload]: 开发者自定义消息体
+ * @return: 客户端生成的消息ID
+ **/ 
 String packetId = user.sendGroupMessage(long groupID, byte[] payload); 
 ```
 
 ## 9) 拉取消息
 
 ``` java
-// 从服务端拉取未下发的消息，建议App从后台切换到前台时拉一下。
+/**
+ * @note: 从服务端拉取下发失败的消息，建议App从后台切换到前台时调用
+ **/
 user.pull();
 ```
 
