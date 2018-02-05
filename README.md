@@ -44,12 +44,6 @@
     android:permission="android.permission.BIND_JOB_SERVICE"
     android:process=":mimc" />
 
-<receiver android:name="com.xiaomi.mimc.receivers.MIMCPingReceiver">
-    <intent-filter>
-	<action android:name="com.xiaomi.push.PING_TIMER" />
-    </intent-filter>
-</receiver>
-
 <receiver
     android:name="com.xiaomi.mimc.receivers.MIMCReceiver"
     android:exported="true">
@@ -60,6 +54,12 @@
 	<action android:name="com.xiaomi.push.channel_closed" />
 	<action android:name="com.xiaomi.push.new_msg" />
 	<action android:name="com.xiaomi.push.kicked" />
+    </intent-filter>
+</receiver>
+
+<receiver android:name="com.xiaomi.mimc.receivers.MIMCPingReceiver">
+    <intent-filter>
+	<action android:name="com.xiaomi.push.PING_TIMER" />
     </intent-filter>
 </receiver>
 ```
