@@ -90,7 +90,13 @@ interface MIMCTokenFetcher {
 ``` java 
 user.registerOnlineStatusHandler(MIMCOnlineStatusHandler handler);
 interface MIMCOnlineStatusHandler {
-	public void statusChange();
+    /**
+     * @param[isOnline]: true 在线，false 离线
+     * @param[errType]: 登录失败类型
+     * @param[errReason]: 登录失败原因
+     * @param[errDescription]: 登录失败原因详细描述
+     **/
+    public void statusChange(boolean isOnline, String errType, String errReason, String errDescription);
 }
 ```
 
