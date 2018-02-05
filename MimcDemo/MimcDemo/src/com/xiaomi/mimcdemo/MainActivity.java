@@ -215,7 +215,7 @@ public class MainActivity extends Activity implements UserManager.OnSendMsgListe
             public void run() {
                 MIMCGroupMessage groupMessage = new MIMCGroupMessage();
                 groupMessage.setGroupId(-1);
-                groupMessage.setTimeStamp(message.getTimeStamp());
+                groupMessage.setTimestamp(message.getTimestamp());
                 groupMessage.setPayload(message.getPayload());
                 groupMessage.setFromAccount(message.getFromAccount());
                 mdatas.add(groupMessage);
@@ -254,7 +254,7 @@ public class MainActivity extends Activity implements UserManager.OnSendMsgListe
             public void run() {
                 Toast.makeText(SystemUtils.getContext(), "Server has received packetId: "
                     + serverAck.getPacketId()
-                    + "\n" + TimeUtils.utc2Local(serverAck.getTimeStamp()), Toast.LENGTH_SHORT).show();
+                    + "\n" + TimeUtils.utc2Local(serverAck.getTimestamp()), Toast.LENGTH_SHORT).show();
             }
         });
     }
