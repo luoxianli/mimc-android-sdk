@@ -3,7 +3,7 @@
 # 快速开始
 
 ## 1) 在应用的AndroidManifest.xml里添加以下配置：
-
+#### 包名"com.xiaomi.mimcdemo"必须替换成APP自己的包名
 ``` xml
 <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE" />
 <uses-permission android:name="android.permission.INTERNET" />
@@ -54,8 +54,11 @@
     </intent-filter>
 </receiver>
 ```
-#### 注意：
-我们将MimcCoreService和MimcJobService定义在了mimc进程中，您也可以配置其运行在任意进程。如果没有配置android:process这个属性，那么它们将运行在应用的主进程中。
+#### 备注：
+```
+我们将MimcCoreService / MimcJobService定义在了mimc进程中。
+开发者也可以配置其运行在任意进程，如果没有配置android:process这个属性，那么它们将运行在应用的主进程中。
+```
 
 ## 2) 初始化
 
