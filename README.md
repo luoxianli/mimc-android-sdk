@@ -82,7 +82,7 @@ interface MIMCTokenFetcher {
 	 * @note: fetchToken()访问APP应用方自行实现的AppProxyService服务，该服务实现以下功能：
 			1. 存储appId/appKey/appSec（不应当存储在APP客户端）
 			2. 用户在APP系统内的合法鉴权
-			3. 调用小米TokenService服务，并将小米TokenService服务返回结果通过fetchToken()原样返回，参考3）获取Token
+			3. 调用小米TokenService服务，并将小米TokenService服务返回结果通过fetchToken()原样返回
 	 **/
 	public String fetchToken();
 }
