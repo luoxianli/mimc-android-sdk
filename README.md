@@ -155,11 +155,11 @@ String packetId = user.sendMessage(String toAppAccount, byte[] payload);
 String packetId = user.sendGroupMessage(long groupID, byte[] payload); 
 ```
 
-## 9) 拉取消息
+## 9) 主动拉取消息
 
 ``` java
 /**
- * @note: 从服务端拉取下发失败的消息，建议App从后台切换到前台时调用
+ * @note: 从服务端拉取下发失败的消息，一般来说APP开发者不需要关注此接口
  **/
 user.pull();
 ```
