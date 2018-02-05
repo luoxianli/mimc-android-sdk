@@ -128,7 +128,7 @@ interface MIMCMessageHandler {
 
 ``` java 
 /**
- * @note: App从后台切换到前台时，建议调用一次登录
+ * @note: 用户登录接口，除在APP初始化时调用，APP从后台切换到前台时也建议调用一次
  **/ 
 user.login();
 ```
