@@ -9,13 +9,12 @@ import android.view.View;
 import android.widget.EditText;
 import android.widget.Toast;
 
+import com.xiaomi.mimc.MIMCException;
+import com.xiaomi.mimc.MIMCUser;
 import com.xiaomi.mimcdemo.R;
 import com.xiaomi.mimcdemo.common.NetWorkUtils;
 import com.xiaomi.mimcdemo.common.SystemUtils;
 import com.xiaomi.mimcdemo.common.UserManager;
-import com.xiaomi.mimc.User;
-import com.xiaomi.mimc.MimcException;
-import com.xiaomi.mimc.MimcLogger;
 
 public class LoginDialog extends Dialog {
 
@@ -47,9 +46,9 @@ public class LoginDialog extends Dialog {
                     return;
                 } else if (!TextUtils.isEmpty(account)){
                     try {
-                        User user = UserManager.getInstance().newUser(account);
+                        MIMCUser user = UserManager.getInstance().newUser(account);
                         if (user != null) user.login();
-                    } catch (MimcException e) {
+                    } catch (MIMCException e) {
                        e.printStackTrace();
                     }
                     dismiss();

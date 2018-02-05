@@ -10,11 +10,11 @@ import android.view.View;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.xiaomi.mimc.MIMCConstant;
 import com.xiaomi.mimc.MIMCGroupMessage;
 import com.xiaomi.mimc.MIMCMessage;
 import com.xiaomi.mimc.MIMCServerAck;
-import com.xiaomi.mimc.MimcConstant;
-import com.xiaomi.mimc.User;
+import com.xiaomi.mimc.MIMCUser;
 import com.xiaomi.mimcdemo.common.ChatAdapter;
 import com.xiaomi.mimcdemo.common.NetWorkUtils;
 import com.xiaomi.mimcdemo.common.ParseJson;
@@ -65,7 +65,7 @@ public class MainActivity extends Activity implements UserManager.OnSendMsgListe
             new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {
-                    User user = UserManager.getInstance().getUser();
+                    MIMCUser user = UserManager.getInstance().getUser();
                     if (user != null) {
                         user.logout();
                     }
@@ -107,7 +107,7 @@ public class MainActivity extends Activity implements UserManager.OnSendMsgListe
                         Toast.makeText(MainActivity.this, MainActivity.this.getString(R.string.network_unavailable), Toast.LENGTH_SHORT).show();
                         return;
                     }
-                    if (UserManager.getInstance().getStatus() != MimcConstant.STATUS_LOGIN_SUCCESS) {
+                    if (UserManager.getInstance().getStatus() != MIMCConstant.STATUS_LOGIN_SUCCESS) {
                         Toast.makeText(MainActivity.this, MainActivity.this.getString(R.string.login_failed), Toast.LENGTH_SHORT).show();
                         return;
                     }
@@ -199,7 +199,7 @@ public class MainActivity extends Activity implements UserManager.OnSendMsgListe
     public void onChannelStatusChanged(int status) {
         TextView textView = (TextView) findViewById(R.id.mimc_status);
         Drawable drawable;
-        if (status == MimcConstant.STATUS_LOGIN_SUCCESS) {
+        if (status == MIMCConstant.STATUS_LOGIN_SUCCESS) {
             drawable = getResources().getDrawable(R.drawable.point_h);
         } else {
             drawable = getResources().getDrawable(R.drawable.point);

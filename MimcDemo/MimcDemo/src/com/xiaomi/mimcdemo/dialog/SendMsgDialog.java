@@ -7,17 +7,13 @@ import android.os.Bundle;
 import android.text.TextUtils;
 import android.view.View;
 import android.widget.EditText;
-import android.widget.Toast;
 
+import com.xiaomi.mimc.MIMCException;
+import com.xiaomi.mimc.MIMCMessage;
+import com.xiaomi.mimc.MIMCUser;
 import com.xiaomi.mimcdemo.R;
-import com.xiaomi.mimcdemo.common.NetWorkUtils;
 import com.xiaomi.mimcdemo.common.SystemUtils;
 import com.xiaomi.mimcdemo.common.UserManager;
-import com.xiaomi.mimc.MIMCMessage;
-import com.xiaomi.mimc.MimcConstant;
-import com.xiaomi.mimc.MimcException;
-import com.xiaomi.mimc.MimcLogger;
-import com.xiaomi.mimc.User;
 
 public class SendMsgDialog extends Dialog {
 
@@ -48,11 +44,11 @@ public class SendMsgDialog extends Dialog {
 
                 if (!TextUtils.isEmpty(mTo)){
                     UserManager userManager = UserManager.getInstance();
-                    User user = userManager.getUser();
+                    MIMCUser user = userManager.getUser();
                     try {
                         if (user != null)
                             user.sendMessage(mTo, mContent);
-                    } catch (MimcException e) {
+                    } catch (MIMCException e) {
                         e.printStackTrace();
                     }
 

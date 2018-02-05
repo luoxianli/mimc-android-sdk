@@ -1,13 +1,13 @@
 package com.xiaomi.mimcdemo.common;
 
 import com.xiaomi.mimc.MIMCGroupMessage;
+import com.xiaomi.mimc.MIMCLogger;
 import com.xiaomi.mimc.MIMCMessage;
+import com.xiaomi.mimc.MIMCMessageHandler;
+import com.xiaomi.mimc.MIMCOnlineStatusListener;
 import com.xiaomi.mimc.MIMCServerAck;
 import com.xiaomi.mimc.MIMCTokenFetcher;
-import com.xiaomi.mimc.MimcLogger;
-import com.xiaomi.mimc.MimcMessageHandler;
-import com.xiaomi.mimc.MimcOnlineStatusListener;
-import com.xiaomi.mimc.User;
+import com.xiaomi.mimc.MIMCUser;
 
 import org.json.JSONObject;
 
@@ -37,7 +37,7 @@ public class UserManager {
     private String appSecret = "b0L3IOz/9Ob809v8H2FbVg==";
     private String appAccount = "";
     private String url;
-    private User mUser;
+    private MIMCUser mUser;
     private int mStatus;
     private final static UserManager instance = new UserManager();
 
@@ -89,14 +89,14 @@ public class UserManager {
         onSendMsgListener.onHandleGroupMessage(message);
     }
 
-    public User getUser() {
+    public MIMCUser getUser() {
         return mUser;
     }
 
-    public User newUser(String account){
+    public MIMCUser newUser(String account){
         if (account == null) return null;
 
-        mUser = new User(appId, account);
+        mUser = new MIMCUser(appId, account);
         mUser.registerTokenFetcher(new TokenFetcher());
         mUser.registerMessageHandler(new MessageHandler());
         mUser.registerOnlineStatusListener(new OnlineStatusListener());
@@ -105,7 +105,7 @@ public class UserManager {
         return mUser;
     }
 
-    class OnlineStatusListener implements MimcOnlineStatusListener {
+    class OnlineStatusListener implements MIMCOnlineStatusListener {
         @Override
         public void onStatusChanged(int status, int code, String msg) {
             mStatus = status;
@@ -113,7 +113,7 @@ public class UserManager {
         }
     }
 
-    class MessageHandler implements MimcMessageHandler {
+    class MessageHandler implements MIMCMessageHandler {
 
         @Override
         public void handleMessage(List<MIMCMessage> packets) {
@@ -178,7 +178,7 @@ public class UserManager {
                 Response response = call.execute();
                 JSONObject object = new JSONObject(response.body().string());
                 if (!object.getString("message").equals("success")) {
-                    MimcLogger.w("data failure");
+                    MIMCLogger.w("data failure");
                 }
                 data = object.getJSONObject("data");
             } catch (Exception e) {

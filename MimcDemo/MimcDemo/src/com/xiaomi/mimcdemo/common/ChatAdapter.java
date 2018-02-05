@@ -7,9 +7,8 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.TextView;
 
-import com.xiaomi.mimcdemo.R;
-import com.xiaomi.mimcdemo.common.UserManager;
 import com.xiaomi.mimc.MIMCGroupMessage;
+import com.xiaomi.mimcdemo.R;
 
 import java.util.List;
 

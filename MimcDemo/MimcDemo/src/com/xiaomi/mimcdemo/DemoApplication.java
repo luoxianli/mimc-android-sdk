@@ -4,13 +4,12 @@ import android.app.Activity;
 import android.app.Application;
 import android.os.Bundle;
 import android.util.Log;
-
-import com.xiaomi.mimc.LoggerInterface;
-import com.xiaomi.mimc.MimcClient;
-import com.xiaomi.mimc.MimcConstant;
-import com.xiaomi.mimc.MimcException;
-import com.xiaomi.mimc.MimcLogger;
-import com.xiaomi.mimc.User;
+import com.xiaomi.mimc.MIMCClient;
+import com.xiaomi.mimc.MIMCConstant;
+import com.xiaomi.mimc.MIMCException;
+import com.xiaomi.mimc.MIMCLogger;
+import com.xiaomi.mimc.MIMCLoggerInterface;
+import com.xiaomi.mimc.MIMCUser;
 import com.xiaomi.mimcdemo.common.SystemUtils;
 import com.xiaomi.mimcdemo.common.UserManager;
 
@@ -23,7 +22,7 @@ public class DemoApplication extends Application {
         super.onCreate();
 
 
-        LoggerInterface newLogger = new LoggerInterface() {
+        MIMCLoggerInterface newLogger = new MIMCLoggerInterface() {
             @Override
             public void setTag(String s) {
 
@@ -39,11 +38,11 @@ public class DemoApplication extends Application {
                 Log.d(TAG, s, throwable);
             }
         };
-        MimcLogger.setLogger(getApplicationContext(), newLogger);
-        MimcLogger.setLogLevel(MimcLogger.INFO);
+        MIMCLogger.setLogger(getApplicationContext(), newLogger);
+        MIMCLogger.setLogLevel(MIMCLogger.INFO);
 
         SystemUtils.initialize(this);
-        MimcClient.initialize(this);
+        MIMCClient.initialize(this);
 
         registerActivityLifecycleCallbacks(new ActivityLifecycleCallbacks() {
             @Override
@@ -55,13 +54,13 @@ public class DemoApplication extends Application {
                 mCount++;
                 // Switch to the foreground
                 if (mCount == 1) {
-                    User user = UserManager.getInstance().getUser();
+                    MIMCUser user = UserManager.getInstance().getUser();
                     if (user != null) try {
                         user.login();
-                        if (UserManager.getInstance().getStatus() == MimcConstant.STATUS_LOGIN_SUCCESS) {
+                        if (UserManager.getInstance().getStatus() == MIMCConstant.STATUS_LOGIN_SUCCESS) {
                             user.pull();
                         }
-                    } catch (MimcException e) {
+                    } catch (MIMCException e) {
                         e.printStackTrace();
                     }
                 }

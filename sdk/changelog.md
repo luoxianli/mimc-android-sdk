@@ -1,3 +1,5 @@
+# 1.1.5
++ Class name style remain same.
 # 1.1.4
 + Optimize send message.
 # 1.1.3

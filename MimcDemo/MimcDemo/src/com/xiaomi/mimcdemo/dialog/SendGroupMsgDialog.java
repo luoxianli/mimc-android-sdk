@@ -8,9 +8,9 @@ import android.text.TextUtils;
 import android.view.View;
 import android.widget.EditText;
 
+import com.xiaomi.mimc.MIMCException;
 import com.xiaomi.mimc.MIMCGroupMessage;
-import com.xiaomi.mimc.MimcException;
-import com.xiaomi.mimc.User;
+import com.xiaomi.mimc.MIMCUser;
 import com.xiaomi.mimcdemo.R;
 import com.xiaomi.mimcdemo.common.SystemUtils;
 import com.xiaomi.mimcdemo.common.UserManager;
@@ -44,11 +44,11 @@ public class SendGroupMsgDialog extends Dialog {
 
                 if (!TextUtils.isEmpty(mTo)){
                     UserManager userManager = UserManager.getInstance();
-                    User user = userManager.getUser();
+                    MIMCUser user = userManager.getUser();
                     try {
                         if (user != null)
                             user.sendGroupMessage(Long.parseLong(mTo), mContent);
-                    } catch (MimcException e) {
+                    } catch (MIMCException e) {
                         e.printStackTrace();
                     }
 
