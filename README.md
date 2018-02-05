@@ -27,31 +27,31 @@
 <uses-permission android:name="com.xiaomi.mimcdemo.permission.MIMC_RECEIVE" />
 
 <service
-    android:name="com.xiaomi.mimc.MimcService"
+    android:name="com.xiaomi.mimc.MIMCService"
     android:enabled="true"
     android:exported="false" />
 
 <service
-    android:name="com.xiaomi.mimc.MimcCoreService"
+    android:name="com.xiaomi.mimc.MIMCCoreService"
     android:enabled="true"
     android:exported="false"
     android:process=":mimc"/>
 
 <service
-    android:name="com.xiaomi.mimc.MimcJobService"
+    android:name="com.xiaomi.mimc.MIMCJobService"
     android:enabled="true"
     android:exported="false"
     android:permission="android.permission.BIND_JOB_SERVICE"
     android:process=":mimc" />
 
-<receiver android:name="com.xiaomi.mimc.receivers.PingReceiver">
+<receiver android:name="com.xiaomi.mimc.receivers.MIMCPingReceiver">
     <intent-filter>
 	<action android:name="com.xiaomi.push.PING_TIMER" />
     </intent-filter>
 </receiver>
 
 <receiver
-    android:name="com.xiaomi.mimc.receivers.MimcReceiver"
+    android:name="com.xiaomi.mimc.receivers.MIMCReceiver"
     android:exported="true">
     <intent-filter>
 	<action android:name="com.xiaomi.channel.PUSH_STARTED" />
@@ -65,20 +65,20 @@
 ```
 #### 备注：
 ```
-我们将MimcCoreService / MimcJobService定义在了mimc进程中。
+我们将MIMCCoreService / MIMCJobService定义在了mimc进程中。
 开发者也可以配置其运行在任意进程，如果没有配置android:process这个属性，那么它们将运行在应用的主进程中。
 ```
 
 ## 用户初始化
 
 ``` java 
-MimcClient.initialize(this);
+MIMCClient.initialize(this);
 
 /**
  * @param[appId]: 开发者在小米开放平台申请的appId
  * @param[appAccount]: 用户在APP帐号系统内的唯一帐号ID
  **/
-User user = new User(appId, appAccount);
+MIMCUser user = new MIMCUser(appId, appAccount);
 ```
 
 ## 安全认证
@@ -112,12 +112,11 @@ user.login();
 user.registerOnlineStatusHandler(MIMCOnlineStatusHandler handler);
 interface MIMCOnlineStatusHandler {
     /**
-     * @param[isOnline]: true 在线，false 离线
-     * @param[errType]: 登录失败类型
-     * @param[errReason]: 登录失败原因
-     * @param[errDescription]: 登录失败原因详细描述
+     * @param[status]: 登录状态，MIMCConstant.STATUS_LOGIN_SUCCESS 在线，MIMCConstant.STATUS_LOGOUT 离线。
+     * @param[code]: 状态码
+     * @param[msg]: 状态描述
      **/
-    public void statusChange(boolean isOnline, String errType, String errReason, String errDescription);
+    public void onStatusChanged(int status, int code, String msg);
 }
 ```
 
