@@ -13,7 +13,6 @@ import com.xiaomi.mimc.MIMCException;
 import com.xiaomi.mimc.MIMCUser;
 import com.xiaomi.mimcdemo.R;
 import com.xiaomi.mimcdemo.common.NetWorkUtils;
-import com.xiaomi.mimcdemo.common.SystemUtils;
 import com.xiaomi.mimcdemo.common.UserManager;
 
 public class LoginDialog extends Dialog {
@@ -30,8 +29,7 @@ public class LoginDialog extends Dialog {
         setTitle(R.string.login);
 
         final EditText accountEditText = (EditText) findViewById(R.id.account);
-        final SharedPreferences sp = SystemUtils.getContext()
-                .getSharedPreferences("user", Context.MODE_PRIVATE);
+        final SharedPreferences sp = getContext().getSharedPreferences("user", Context.MODE_PRIVATE);
 
         accountEditText.setText(sp.getString("loginAccount", null));
         findViewById(R.id.login).setOnClickListener(new View.OnClickListener() {

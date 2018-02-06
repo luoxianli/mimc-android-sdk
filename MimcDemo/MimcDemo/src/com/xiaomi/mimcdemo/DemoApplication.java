@@ -3,47 +3,30 @@ package com.xiaomi.mimcdemo;
 import android.app.Activity;
 import android.app.Application;
 import android.os.Bundle;
-import android.util.Log;
+
 import com.xiaomi.mimc.MIMCClient;
 import com.xiaomi.mimc.MIMCConstant;
 import com.xiaomi.mimc.MIMCException;
 import com.xiaomi.mimc.MIMCLogger;
-import com.xiaomi.mimc.MIMCLoggerInterface;
 import com.xiaomi.mimc.MIMCUser;
-import com.xiaomi.mimcdemo.common.SystemUtils;
 import com.xiaomi.mimcdemo.common.UserManager;
 
 public class DemoApplication extends Application {
-    public static final String TAG = "com.xiaomi.MimcDemo";
     private int mCount = 0;
 
     @Override
     public void onCreate() {
         super.onCreate();
 
-
-        MIMCLoggerInterface newLogger = new MIMCLoggerInterface() {
-            @Override
-            public void setTag(String s) {
-
-            }
-
-            @Override
-            public void log(String s) {
-                Log.d(TAG, s);
-            }
-
-            @Override
-            public void log(String s, Throwable throwable) {
-                Log.d(TAG, s, throwable);
-            }
-        };
-        MIMCLogger.setLogger(getApplicationContext(), newLogger);
-        MIMCLogger.setLogLevel(MIMCLogger.INFO);
-
-        SystemUtils.initialize(this);
+        // 初始化SDK
         MIMCClient.initialize(this);
 
+        // 启用记录日志文件，位于：包名（应用安装路径）/files/MiPushLog/log*.txt
+        MIMCLogger.enableMIMCLog(getApplicationContext(), true);
+        MIMCLogger.setLogLevel(MIMCLogger.INFO);
+        MIMCLogger.i("App start...");
+
+        // 建议，从后台切换到前台时，登录一下
         registerActivityLifecycleCallbacks(new ActivityLifecycleCallbacks() {
             @Override
             public void onActivityCreated(Activity activity, Bundle savedInstanceState) {
@@ -52,16 +35,19 @@ public class DemoApplication extends Application {
             @Override
             public void onActivityStarted(Activity activity) {
                 mCount++;
-                // Switch to the foreground
+                // 切换到前台
                 if (mCount == 1) {
                     MIMCUser user = UserManager.getInstance().getUser();
-                    if (user != null) try {
-                        user.login();
-                        if (UserManager.getInstance().getStatus() == MIMCConstant.STATUS_LOGIN_SUCCESS) {
-                            user.pull();
+                    if (user != null) {
+                        try {
+                            user.login();
+                            // 建议，拉一下数据
+                            if (UserManager.getInstance().getStatus() == MIMCConstant.STATUS_LOGIN_SUCCESS) {
+                                user.pull();
+                            }
+                        } catch (MIMCException e) {
+                            e.printStackTrace();
                         }
-                    } catch (MIMCException e) {
-                        e.printStackTrace();
                     }
                 }
             }
@@ -77,7 +63,7 @@ public class DemoApplication extends Application {
             @Override
             public void onActivityStopped(Activity activity) {
                 mCount--;
-                // Switch to the background
+                // 切换到后台
                 if (mCount == 0) {
                 }
             }

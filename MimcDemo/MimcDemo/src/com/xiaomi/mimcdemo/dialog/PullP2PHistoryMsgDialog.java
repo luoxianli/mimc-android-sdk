@@ -17,7 +17,6 @@ import android.widget.Toast;
 import com.xiaomi.mimc.MIMCConstant;
 import com.xiaomi.mimcdemo.R;
 import com.xiaomi.mimcdemo.common.NetWorkUtils;
-import com.xiaomi.mimcdemo.common.SystemUtils;
 import com.xiaomi.mimcdemo.common.TimeUtils;
 import com.xiaomi.mimcdemo.common.UserManager;
 
@@ -45,7 +44,7 @@ public class PullP2PHistoryMsgDialog extends Dialog {
         getCurrentTime();
         final EditText etToAccount = (EditText)findViewById(R.id.et_to_account);
         final EditText etFromAccount = (EditText)findViewById(R.id.et_from_account);
-        final SharedPreferences sp = SystemUtils.getContext().getSharedPreferences("user", Context.MODE_PRIVATE);
+        final SharedPreferences sp = getContext().getSharedPreferences("user", Context.MODE_PRIVATE);
         etToAccount.setText(sp.getString("p2pToAccount", ""));
         etFromAccount.setText(sp.getString("p2pFromAccount", ""));
         tvBeginDateTime = (TextView)findViewById(R.id.tv_begin_date_time);

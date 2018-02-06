@@ -12,7 +12,6 @@ import com.xiaomi.mimc.MIMCException;
 import com.xiaomi.mimc.MIMCGroupMessage;
 import com.xiaomi.mimc.MIMCUser;
 import com.xiaomi.mimcdemo.R;
-import com.xiaomi.mimcdemo.common.SystemUtils;
 import com.xiaomi.mimcdemo.common.UserManager;
 
 public class SendGroupMsgDialog extends Dialog {
@@ -28,8 +27,7 @@ public class SendGroupMsgDialog extends Dialog {
         setCancelable(true);
         setTitle(R.string.send_group_msg);
         final EditText etGroupId = (EditText)findViewById(R.id.et_group_id);
-        final SharedPreferences sp = SystemUtils.getContext()
-                .getSharedPreferences("user", Context.MODE_PRIVATE);
+        final SharedPreferences sp = getContext().getSharedPreferences("user", Context.MODE_PRIVATE);
         etGroupId.setText(sp.getString("toGroupId", null));
 
         findViewById(R.id.btn_group_send).setOnClickListener(new View.OnClickListener() {

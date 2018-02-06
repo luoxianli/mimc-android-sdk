@@ -12,7 +12,6 @@ import com.xiaomi.mimc.MIMCException;
 import com.xiaomi.mimc.MIMCMessage;
 import com.xiaomi.mimc.MIMCUser;
 import com.xiaomi.mimcdemo.R;
-import com.xiaomi.mimcdemo.common.SystemUtils;
 import com.xiaomi.mimcdemo.common.UserManager;
 
 public class SendMsgDialog extends Dialog {
@@ -28,8 +27,7 @@ public class SendMsgDialog extends Dialog {
         setCancelable(true);
         setTitle(R.string.button_send);
         final EditText toEditText = (EditText)findViewById(R.id.chat_to);
-        final SharedPreferences sp = SystemUtils.getContext()
-                .getSharedPreferences("user", Context.MODE_PRIVATE);
+        final SharedPreferences sp = getContext().getSharedPreferences("user", Context.MODE_PRIVATE);
         toEditText.setText(sp.getString("toAccount", null));
 
         findViewById(R.id.chat_send).setOnClickListener(new View.OnClickListener() {
