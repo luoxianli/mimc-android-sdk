@@ -227,9 +227,10 @@ public class UserManager {
                 }
                 data = object.getJSONObject("data");
             } catch (Exception e) {
-                e.printStackTrace();
+                MIMCLogger.w("Get token exception: " + e.getMessage());
             }
-            return data.toString();
+
+            return data != null ? data.toString() : null;
         }
     }
 
