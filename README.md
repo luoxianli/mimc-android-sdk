@@ -154,7 +154,7 @@ interface MIMCMessageHandler {
 	 * @param[serverAck]: 服务器返回的serverAck对象
 	 *        serverAck.packetId: 客户端生成的消息ID
 	 *        serverAck.timestamp: 消息发送到服务器的时间(单位:ms)
-	 *        serverAck.sequence: 服务器为消息分配的递增ID，可用于去重/排序
+	 *        serverAck.sequence: 服务器为消息分配的递增ID，单用户空间内递增唯一，可用于去重/排序
 	 **/ 
 	public void handleServerAck(MIMCServerAck serverAck);
 	
