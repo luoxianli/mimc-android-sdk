@@ -49,6 +49,7 @@ public class ParseJson {
             JSONObject topicInfo = object.getJSONObject("topicInfo");
             info += context.getString(R.string.group_id) + topicInfo.getString("topicId") + "\n";
             info += context.getString(R.string.group_name) + topicInfo.getString("topicName") + "\n";
+            info += context.getString(R.string.group_bulletin) + topicInfo.getString("bulletin") + "\n";
             JSONArray members = object.getJSONArray("members");
             for (int i = 0; i < members.length(); i++) {
                 JSONObject member = members.getJSONObject(i);

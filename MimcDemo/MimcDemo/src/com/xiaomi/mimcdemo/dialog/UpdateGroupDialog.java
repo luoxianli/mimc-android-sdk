@@ -25,7 +25,7 @@ public class UpdateGroupDialog extends Dialog {
         setCancelable(true);
         setTitle(R.string.update_group);
         final EditText etGroupId = (EditText)findViewById(R.id.et_group_id);
-        final EditText etNewOwnerUuid = (EditText)findViewById(R.id.et_new_owner_uuid);
+        final EditText etOwnerAccount = (EditText)findViewById(R.id.et_owner_account);
         final EditText etGroupName =(EditText)findViewById(R.id.et_group_name);
         final EditText etGroupBulletin = (EditText)findViewById(R.id.et_group_bulletin);
 
@@ -34,7 +34,7 @@ public class UpdateGroupDialog extends Dialog {
             @Override
             public void onClick(View v) {
                 String groupId = etGroupId.getText().toString();
-                String newOwnerUuid = etNewOwnerUuid.getText().toString();
+                String ownerAccount = etOwnerAccount.getText().toString();
                 String groupName = etGroupName.getText().toString();
                 String groupBulletin = etGroupBulletin.getText().toString();
 
@@ -47,18 +47,9 @@ public class UpdateGroupDialog extends Dialog {
                 } else if (groupId.isEmpty()) {
                     Toast.makeText(getContext(), getContext().getString(R.string.input_id_of_group), Toast.LENGTH_SHORT).show();
                     return;
-                } else if(newOwnerUuid.isEmpty()) {
-                    Toast.makeText(getContext(), getContext().getString(R.string.input_uuid_owner_of_group), Toast.LENGTH_SHORT).show();
-                    return;
-                } else if (groupName.isEmpty()) {
-                    Toast.makeText(getContext(), getContext().getString(R.string.input_name_of_group), Toast.LENGTH_SHORT).show();
-                    return;
-                } else if (groupBulletin.isEmpty()) {
-                    Toast.makeText(getContext(), getContext().getString(R.string.input_bulletin_of_group), Toast.LENGTH_SHORT).show();
-                    return;
                 }
 
-                UserManager.getInstance().updateGroup(groupId, newOwnerUuid, groupName, groupBulletin);
+                UserManager.getInstance().updateGroup(groupId, ownerAccount, groupName, groupBulletin);
                 dismiss();
             }
         });

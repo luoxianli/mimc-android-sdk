@@ -21,6 +21,7 @@ import okhttp3.OkHttpClient;
 import okhttp3.Request;
 import okhttp3.RequestBody;
 import okhttp3.Response;
+import okio.BufferedSink;
 
 public class UserManager {
     /**
@@ -441,14 +442,22 @@ public class UserManager {
     /**
      * 群主更新群信息
      * @param groupId 群ID
-     * @param newOwnerUuid 若为群主UUID则更新群，若为群成员UUID则指派新的群主
+     * @param newOwnerAccount 若为群成员则指派新的群主
      * @param newGroupName 群名
      * @param newGroupBulletin 群公告
      */
-    public void updateGroup(final String groupId, final String newOwnerUuid,  final String newGroupName, final String newGroupBulletin) {
+    public void updateGroup(final String groupId, final String newOwnerAccount,  final String newGroupName, final String newGroupBulletin) {
         url = "https://mimc.chat.xiaomi.net/api/topic/" + appId + "/" + groupId;
-        final String json = "{\"topicId\":\"" + groupId + "\", \"ownerUuid\":\"" + newOwnerUuid + "\", \"topicName\":\""
-                + newGroupName + "\", \"bulletin\":\"" + newGroupBulletin + "\"}";
+        // 注意：不指定的信息则不更新（键值对一起不指定）
+        String json = "{";
+        if (!newOwnerAccount.isEmpty()) {
+            json += "\"ownerAccount\":\"" + newOwnerAccount + "\"";
+        } if (!newGroupName.isEmpty()) {
+            json += "\"topicName\":\""+ newGroupName + "\"";
+        } if (!newGroupBulletin.isEmpty()) {
+            json += "\"bulletin\":\""+ newGroupBulletin + "\"";
+        }
+        json += "}";
         MediaType JSON = MediaType.parse("application/json");
         OkHttpClient client = new OkHttpClient();
         Request request = new Request

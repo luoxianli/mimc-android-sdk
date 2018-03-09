@@ -1,3 +1,7 @@
+# 1.1.6
++ The updateGroup() method is modified.
++ Optimize timeout callback.
++ Fix bugs.
 # 1.1.5
 + Class name style remain same.
 # 1.1.4
